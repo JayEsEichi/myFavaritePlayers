@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <!-- Webpage Title -->
+  <title>회원가입 페이지</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://webfontworld.github.io/mapo/MapoBackpacking.css" rel="stylesheet">
+  <link href="https://webfontworld.github.io/NexonLv2Gothic/NexonLv2Gothic.css" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $(document).ready(function(){
+      if($('#hidden_value').val() == "false"){
+        alert("이미 있는 아이디입니다.");
+      }
+    });
+
+    function onclickAdmin() {
+      // Get the checkbox
+      var checkBox = document.getElementById("admin-check");
+      // Get the output text
+      var box = document.getElementById("admin-token");
+
+      // If the checkbox is checked, display the output text
+      if (checkBox.checked == true){
+        box.style.display = "block";
+      } else {
+        box.style.display = "none";
+      }
+    }
+
+    //아이디 중복확인
+    function idcheck() {
+      let userid = $('#userid').val()
+      console.log(userid)
+      if (userid == "") {
+        $('#help_id').text("아이디를 입력해주세요.").removeClass("blue").addClass("red")
+        return;
+      }
+      if (!isid(userid)) {
+        $('#help_id').text("영문혹은 숫자를 사용하여 2~20글자 이내로 사용가능합니다.").removeClass("blue").addClass("red")
+        return;
+      }
+    }
+
+    //아이디,닉네임,비밀번호 조건 체크
+    function isid(asValue) {
+      var regExp = /^([a-zA-Z0-9]){2,20}$/;
+      return regExp.test(asValue);
+    }
+
+    function ispassword(asValue) {
+      var regExp = /^([0-9a-zA-Z!@#$%^&*]){4,15}$/;
+      return regExp.test(asValue);
+    }
+
+
+    //회원가입버튼
+    function register() {
+      let userid = $("#userid").val()
+      let userpwd = $("#userpwd").val()
+      let username = $("#username").val()
+      let userpwdcheck = $("#userpwdcheck").val()
+      let email = $("#email").val()
+
+      console.log(userid, userpwd, userpwdcheck, email)
+
+      if (userpwd == "") {
+        $("#help_password").text("비밀번호를 입력해주세요.").removeClass("blue").addClass("red")
+        $("#userpwd").focus()
+        return;
+      } else if (!ispassword(userpwd)) {
+        $('#help_password').text("영문,숫자,특수문자를 사용할수있으며 4~15글자이내로 사용가능합니다.").removeClass("blue").addClass("red")
+        return;
+      } else if (userpwdcheck == "") {
+        $("#help_passwordcheck").text("비밀번호확인를 입력해주세요.").removeClass("blue").addClass("red")
+        $("#userpwcheck").focus()
+        return;
+      } else if (userpwd != userpwdcheck) {
+        $("#help_passwordcheck").text("비밀번호가 일치하지 않습니다.").removeClass("blue").addClass("red")
+        $("#userpwcheck").focus()
+        return;
+      } else if (email == "") {
+        $("#help_email").text("이메일을 기입해주십시오.").removeClass("blue").addClass("red")
+        $("#email").focus()
+        return;
+      }
+
+      // location.href="/user/public/register?userid=" + ${userid} + "&userpwd=" + ${userpwd} + "&username=" + ${username} + "&email=" + ${email}";
+      location.href="/user/public/register/confirm?userid=" + userid + "&userpwd=" + userpwd + "&username=" + username + "&email=" + email;
+
+    }
+
+    //비밀번호 빈칸일경우, 채워질경우 표시
+    //아이디, 비밀번호 중복체크후 변경시 표시해주기
+    $(function () {
+      $("#userpwd").on('input', function () {
+        if ($("#userpwd").val() == '')
+          $("#help_password").removeClass("blue").addClass("red")
+        else
+          $("#help_password").text("").removeClass("red").addClass("blue")
+      })
+    })
+    $(function () {
+      $("#userpwcheck").on('input', function () {
+        if ($("#userpwd").val() == '')
+          $("#help_passwordcheck").removeClass("blue").addClass("red")
+        else
+          $("#help_passwordcheck").text("").removeClass("red").addClass("blue")
+      })
+    })
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .blue {
+      color: cornflowerblue;
+    }
+
+    .red {
+      color: red;
+    }
+    p {
+      font-size: 0.9em;
+    }
+
+    .wrap_box {
+      width: 950px;
+      margin: auto;
+      margin-top: 250px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .water {
+      font-family: 'MapoBackpacking';
+      font-size: 7em;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      margin-top: 50px;
+    }
+
+    .water h3 {
+      position: absolute;
+    }
+
+    .water h3:nth-child(1) {
+      color: transparent;
+      -webkit-text-stroke: 2px #45B0EC;
+    }
+
+    .water h3:nth-child(2) {
+      color: #45B0EC;
+      animation: animate 4s ease-in-out infinite;
+    }
+
+    @keyframes animate {
+      0%, 100% {
+        clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+      }
+      50% {
+        clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+      }
+    }
+
+
+    .inputBox {
+      position: relative;
+      width: 250px;
+      margin-bottom: 30px;
+    }
+
+    .inputBox:nth-child(4),
+    .inputBox:nth-child(5) {
+      width: 380px;
+    }
+
+    .inputBox input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(150, 150, 150, 0.15);
+
+      border-radius: 5px;
+      outline: none;
+      color: #444;
+      font-size: 1em;
+      transition: 0.5s;
+    }
+
+    .inputBox span {
+      position: absolute;
+      left: 0;
+      padding: 10px;
+      pointer-events: none;
+      font-size: 1em;
+      color: rgba(0, 0, 0, 0.25);
+      text-transform: uppercase;
+      transition: 0.5s;
+    }
+
+    .inputBox input:valid ~ span,
+    .inputBox input:focus ~ span {
+      color: #45B0EC;
+      transform: translateX(10px) translateY(-7px);
+      font-size: 0.65em;
+      padding: 0 10px;
+      background: #fff;
+      border-left: 1px solid #45B0EC;
+      border-right: 1px solid #45B0EC;
+      letter-spacing: 0.2em;
+    }
+
+    .inputBox input:valid,
+    .inputBox input:focus {
+      border: 1px solid #45B0EC;
+    }
+
+    .join_box {
+      width: 95%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px 40px 40px 40px;
+      border: 1px solid #45B0EC;
+      border-radius: 20px;
+      margin-top: 25vh;
+      font-family: 'NexonLv2Gothic';
+    }
+
+    .join_box h1 {
+      letter-spacing: 2px;
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    .test {
+      position: absolute;
+      border: 1px solid #45B0EC;
+      right: -150px;
+      top: 0px;
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: 0.5s;
+      color: #45B0EC;
+    }
+
+    .test:hover {
+      background: #45B0EC;
+      color: #fff;
+    }
+
+    p {
+      margin-top: 5px;
+    }
+
+    .btnbox {
+      text-align: center;
+    }
+
+    .joinbtn {
+      padding: 15px 100px;
+      margin: 10px 4px;
+      color: #45B0EC;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .joinbtn:hover {
+      color: #fff;
+    }
+
+    .joinbtn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #000;
+      -webkit-transform: scaleX(.3);
+      transform: scaleX(.3);
+      opacity: 0;
+      transition: all .4s
+    }
+
+    .joinbtn:hover::before {
+      opacity: 1;
+      background-color: #45B0EC;
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+      transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
+      transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
+    }
+  </style>
+</head>
+<body>
+<div class="water">
+  <h3>MFP</h3>
+  <h3>MFP</h3>
+</div>
+
+<div class="join_box">
+  <div>
+    <h1>회원가입</h1>
+    <div class="inputBox">
+      <input type="text" required="required" id="userid">
+      <span>아이디</span>
+      <p id="help_id">영문과 숫자를 사용할수있으며 2~20글자</p>
+    </div>
+    <div class="inputBox">
+      <input type="text" required="required" id="username">
+      <span>유저명</span>
+      <p id="help_nick">영문과 한글을 사용할수있으며 2~10글자</p>
+    </div>
+    <div class="inputBox">
+      <input type="password" required="required" id="userpwd">
+      <span>비밀번호</span>
+      <p id="help_password">영문,숫자,특수문자를 사용할수있으며 4~15글자</p>
+    </div>
+    <div class="inputBox">
+      <input type="password" required="required" id="userpwdcheck">
+      <span>비밀번호 확인</span>
+      <p id="help_passwordcheck"></p>
+    </div>
+    <div class="inputBox">
+      <input type="text" required="required" id="email">
+      <span>이메일</span>
+      <p id="help_email"></p>
+    </div>
+    <div>
+      <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
+      <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box" style="display:none">
+    </div>
+    <div class="btnbox">
+      <a onclick="register()" class="joinbtn">회원가입하기</a>
+    </div>
+  </div>
+</div>
+<input id="hidden_value" type="hidden" value="${trueorfalse}">
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Webpage Title -->
+    <title>로그인 페이지</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://webfontworld.github.io/mapo/MapoBackpacking.css" rel="stylesheet">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://webfontworld.github.io/NexonLv1Gothic/NexonLv1Gothic.css" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        // 로그인을 구현하면, 반드시 쿠키라는 개념을 사용합니다.
+        // 페이지에 관계없이 브라우저에 임시로 저장되는 정보입니다. 키:밸류 형태(딕셔너리 형태)로 저장됩니다.
+        // 쿠키가 있기 때문에, 한번 로그인하면 네이버에서 다시 로그인할 필요가 없는 것입니다.
+        // 브라우저를 닫으면 자동 삭제되게 하거나, 일정 시간이 지나면 삭제되게 할 수 있습니다.
+
+        // function login() {
+        //     let userid = $("#userid").val();
+        //     let userpwd = $("#userpwd").val();
+        //     location.href="/api/login?userid="+userid+"&userpwd="+userpwd;
+        // }
+        //
+        // function register(){
+        //     location.href="register";
+        // }
+
+        $(document).ready(function () {
+            let wrongaccount = $('#wrongaccount').val();
+
+            if (wrongaccount.equals("wrongaccount")) {
+                alert("존재하지 않는 계정입니다.");
+            }
+        });
+
+        function login() {
+            let userid = $('#userid').val();
+            let userpwd = $('#userpwd').val();
+            location.href = "/user/public/login/confirm?userid=" + userid + "&userpwd=" + userpwd;
+        }
+
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'NexonLv1Gothic';
+        }
+
+        /*{#아이디 비밀번호 입력칸#}*/
+        .input_wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10vh;
+            padding: 1em;
+        }
+
+        .inputBox {
+            position: relative;
+            width: 250px;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(150, 150, 150, 0.15);
+
+            border-radius: 5px;
+            outline: none;
+            color: #444;
+            font-size: 1em;
+            transition: 0.5s;
+        }
+
+        .inputBox span {
+            position: absolute;
+            left: 0;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 1em;
+            color: rgba(0, 0, 0, 0.25);
+            text-transform: uppercase;
+            transition: 0.5s;
+        }
+
+        .inputBox input:valid ~ span,
+        .inputBox input:focus ~ span {
+            color: #ffa000;
+            transform: translateX(10px) translateY(-7px);
+            font-size: 0.65em;
+            padding: 0 10px;
+            background: #fff;
+            border-left: 1px solid #ffa000;
+            border-right: 1px solid #ffa000;
+            letter-spacing: 0.2em;
+        }
+
+        .inputBox input:valid,
+        .inputBox input:focus {
+            border: 1px solid #ffa000;
+        }
+
+        /*{#로그인 버튼#}*/
+        .btn {
+            position: relative;
+            display: inline-block;
+            padding: 10px 30px;
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.5);
+            background: #fff;
+            letter-spacing: 2px;
+            font-size: 16px;
+            transition: 0.5s;
+            margin-top: 20px;
+        }
+
+        .btn2 {
+            position: relative;
+            display: inline-block;
+            padding: 10px 30px;
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.5);
+            background: #fff;
+            letter-spacing: 2px;
+            font-size: 16px;
+            transition: 0.5s;
+            margin-top: 10px;
+        }
+
+        .btn2:hover {
+            color: #45B0EC;
+        }
+
+        .btn:hover {
+            color: #ffa000;
+        }
+
+        .btn span {
+            display: block;
+            position: absolute;
+            background: #ffa000;
+        }
+
+        .btn2 span {
+            display: block;
+            position: absolute;
+            background: #45B0EC;
+        }
+
+        .btn span:nth-child(1),
+        .btn2 span:nth-child(1) {
+            left: 0;
+            bottom: 0;
+            width: 1px;
+            height: 100%;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover span:nth-child(1),
+        .btn2:hover span:nth-child(1) {
+            transform: scaleY(1);
+            transform-origin: bottom;
+            transition: transform 0.2s;
+        }
+
+        .btn span:nth-child(2),
+        .btn2 span:nth-child(2) {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover span:nth-child(2),
+        .btn2:hover span:nth-child(2) {
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: transform 0.2s;
+        }
+
+        .btn span:nth-child(3),
+        .btn2 span:nth-child(3) {
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            height: 100%;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        .btn:hover span:nth-child(3),
+        .btn2:hover span:nth-child(3) {
+            transform: scaleY(1);
+            transform-origin: bottom;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        .btn span:nth-child(4),
+        .btn2 span:nth-child(4) {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 1px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        .btn:hover span:nth-child(4),
+        .btn2:hover span:nth-child(4) {
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        /*{#제목#}*/
+        h1 {
+            font-family: 'MapoBackpacking';
+            font-size: 7em;
+            text-align: center;
+            color: #ffa000;
+            margin-top: 5vh;
+        }
+    </style>
+
+</head>
+<body>
+<h1>MFP</h1>
+<div class="input_wrap">
+    <div class="inputBox">
+        <input type="text" required="required" id="userid">
+        <span>아이디</span>
+    </div>
+    <div class="inputBox">
+        <input type="password" required="required" id="userpwd">
+        <span>비밀번호</span>
+    </div>
+    <a class="btn" onclick="login()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        로그인</a>
+    <a class="btn2" onclick="location.href='/user/public/register'">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        회원가입</a>
+</div>
+<input type="hidden" th:value="${wrongaccount}" id="wrongaccount">
+</body>
+</html>
