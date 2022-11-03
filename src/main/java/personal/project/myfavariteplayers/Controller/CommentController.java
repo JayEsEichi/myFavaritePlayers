@@ -2,10 +2,7 @@ package personal.project.myfavariteplayers.Controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import personal.project.myfavariteplayers.Controller.Request.CommentRequestDto;
 import personal.project.myfavariteplayers.Controller.Response.ResponseDto;
 import personal.project.myfavariteplayers.Service.CommentService;
@@ -25,5 +22,13 @@ public class CommentController {
     @PostMapping("/auth/write/confirm")
     public ResponseDto<?> writeComment(@RequestBody CommentRequestDto commentRequestDto, HttpServletRequest request){
         return commentService.writeComment(commentRequestDto, request);
+    }
+
+
+    // 댓글 전체 조회 ResponseBody 로 json 형식으로 구현 (post맨 필요) )
+    @ResponseBody
+    @GetMapping("/public/comments")
+    public ResponseDto<?> getAllComments(){
+        return commentService.getAllComments();
     }
 }

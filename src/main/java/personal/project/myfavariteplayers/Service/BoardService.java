@@ -145,7 +145,7 @@ public class BoardService {
         return ResponseDto.success(boardlist);
     }
 
-
+    // 작성한 모든 게시글 조회
     public ResponseDto<?> getAllMyBoards(HttpServletRequest request){
         if (request == null) {
             return ResponseDto.fail("NOT_EXIST_REQUEST", "요청이 존재하지 않습니다. 다시 로그인해주시기 바랍니다.");

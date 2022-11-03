@@ -3,6 +3,7 @@ package personal.project.myfavariteplayers.Controller.Response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import personal.project.myfavariteplayers.Entity.Board;
 
 import java.time.LocalDateTime;
 
